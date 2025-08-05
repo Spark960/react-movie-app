@@ -1,11 +1,16 @@
-import { Client, Databases, Query } from "appwrite";
+import { Client, Databases, Query, ID } from "appwrite";
 
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
-const DATABASE_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID;
+console.log(PROJECT_ID);
+console.log(DATABASE_ID);
+console.log(COLLECTION_ID);
+
+
 
 const client = new Client()
-   .setEndpoint('https://frankfurt.cloud.appwrite.io/v1')
+   .setEndpoint('https://fra.cloud.appwrite.io/v1')
    .setProject(PROJECT_ID);
 
 const database = new Databases(client);
@@ -15,6 +20,8 @@ export const updateSearchCount = async (searchTerm, movie) => {
     try{
         const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, 
             [Query.equal('searchTerm', searchTerm)])
+            console.log(searchTerm);
+            
 
         if(result.documents.length > 0)
         {
@@ -25,7 +32,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
             })
         } else
         {
-            await database.createDocument(DATABASE_ID, COLLECTION_ID, {
+            await database.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
                 searchTerm,
                 count: 1,
                 movie_id: movie.id,
