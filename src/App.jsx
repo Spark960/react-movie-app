@@ -102,10 +102,12 @@ const App = () => {
           <img src="./hero.png" alt="Hero Banner" />
           <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without The Hassle</h1>
         
+       { isLoading && (
         <span className='z-[1000] text-white flex gap-2'>
               <LoaderCircle className='animate-spin '/>
               <span>Loading...</span>
-        </span>
+        </span>)
+}
         <Search searchTerm={searchTerm} setSearchTerm = {setSearchTerm} />
 
         </header>
