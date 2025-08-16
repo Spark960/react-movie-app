@@ -4,6 +4,7 @@ import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import { useDebounce } from 'react-use';
 import { getTrendingMovies, updateSearchCount } from './appwrite.js';
+import { LoaderCircle } from 'lucide-react';
 
 const API_BASE_URL = "https://api.themoviedb.org/3"
 
@@ -101,15 +102,18 @@ const App = () => {
           <img src="./hero.png" alt="Hero Banner" />
           <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without The Hassle</h1>
         
+        <span className='z-[1000] text-white flex gap-2'>
+              <LoaderCircle className='animate-spin '/>
+              <span>Loading...</span>
+        </span>
         <Search searchTerm={searchTerm} setSearchTerm = {setSearchTerm} />
+
         </header>
 
         {trendingMovies.length > 0 && (
           <section className='trending'>
             <h2>Trending Movies</h2>
-            console.log(trendingMovies);
-            
-
+      
             <ul>
               {trendingMovies.map((movie, index) => (
                 <li key={movie.$id}>
@@ -126,7 +130,10 @@ const App = () => {
           <h2 >All Movies</h2>
 
           {isLoading ? (
-            <Spinner />
+            <span className='animate-spin flex gap-2'>
+              <span>Loading...</span>
+              <LoaderCircle/>
+              </span>
           ) : errorMessage ? (
             <p className='text-red-500'>{errorMessage} </p>
           ) : (
