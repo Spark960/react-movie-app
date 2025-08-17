@@ -97,15 +97,13 @@ const App = () => {
   
 
   return (
-    <main>
-      <div className='pattern'/>
-      <div className='wrapper'>
+        <>
         <header>
           <img src="./hero.png" alt="Hero Banner" />
           <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without The Hassle</h1>
         
        { isLoading && (
-        <span className='z-[1000] text-white flex gap-2'>
+           <span className='z-[1000] text-white flex gap-2'>
               <LoaderCircle className='animate-spin '/>
               <span>Loading...</span>
         </span>)
@@ -115,17 +113,17 @@ const App = () => {
         </header>
 
         {trendingMovies.length > 0 && (
-          <section className='trending'>
+            <section className='trending'>
             <h2>Trending Movies</h2>
       
             <ul>
               {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
+                  <li key={movie.$id}>
                   <p>{index + 1} </p>
                   <img src={movie.poster_url} alt= {movie.searchTerm} />
                 </li>
                 
-              ))}
+            ))}
             </ul>
           </section>
         )}
@@ -134,25 +132,25 @@ const App = () => {
           <h2 >All Movies</h2>
 
           {isLoading ? (
-            <span className='animate-spin flex gap-2'>
+              <span className='animate-spin flex gap-2'>
               <span>Loading...</span>
               <LoaderCircle/>
               </span>
           ) : errorMessage ? (
-            <p className='text-red-500'>{errorMessage} </p>
-          ) : (
-            <ul>
+              <p className='text-red-500'>{errorMessage} </p>
+            ) : (
+                <ul>
               {movieList.map((movie) => (
-                <MovieCard key={movie.id} movie = {movie} />
-              ))}
+                  <MovieCard key={movie.id} movie = {movie} />
+                ))}
             </ul>
           )}
         </section>
 
         
 
-      </div>
-    </main>
+    
+          </>
     
   )
 }
