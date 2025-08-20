@@ -16,10 +16,9 @@ const MovieDetail = () => {
   const { id } = useParams(); 
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [aiData, setAiData] = useState(null); // Changed to null for consistency
+  const [aiData, setAiData] = useState(null); 
   const [isAiLoading, setIsAiLoading] = useState(false);
 
-  // ✅ EFFECT #1: Fetch the movie details from TMDB when the ID changes.
   useEffect(() => {
     const fetchMovie = async () => {
       setIsLoading(true);
@@ -35,12 +34,10 @@ const MovieDetail = () => {
     };
 
     fetchMovie();
-  }, [id]); // Only depends on 'id'
+  }, [id]); 
 
-  // ✅ EFFECT #2: Fetch AI data ONLY when the 'movie' object is available.
   useEffect(() => {
     const fetchAiData = async () => {
-      // Guard clause: only run if we have a movie and haven't fetched AI data yet.
       if (movie && !aiData) {
         setIsAiLoading(true);
         try {
@@ -60,9 +57,8 @@ const MovieDetail = () => {
     };
 
     fetchAiData();
-  }, [movie, aiData]); // Depends on 'movie' and 'aiData' to prevent re-running
+  }, [movie, aiData]); 
 
-  // Handle the initial loading state for the movie
   if (isLoading) {
     return (
       <div className="p-6 flex gap-2 text-white">
@@ -71,13 +67,10 @@ const MovieDetail = () => {
       </div>
     );
   }
-  
-  // Handle case where movie is not found
   if (!movie) {
     return <div>Movie not found.</div>;
   }
 
-  // ✅ Correct Placement: Destructure inside the component body, before the return.
   const { title, poster_path, overview, release_date, vote_average } = movie;
 
   return (
@@ -100,7 +93,6 @@ const MovieDetail = () => {
         </div>
       </div>
 
-      {/* ✅ Section for AI Companion Data */}
       <div className="ai-companion-section mt-12 text-white">
         {isAiLoading && (
           <div className="p-6 flex gap-2">
